@@ -1,0 +1,9 @@
+[workspace]
+resolver = "2"
+members = ["crates/ferrum-core", "crates/ferrum-cpu", "crates/ferrum-cuda", "crates/ferrum-bench", "crates/ferrum-ml", "crates/ferrum-python", "crates/ferrum-experiment", "crates/ferrum-cli"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/stickleetoto/Put-RUST-into-the-GPU"
