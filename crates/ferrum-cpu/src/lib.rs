@@ -13,7 +13,10 @@ pub fn vector_add(left: &[f32], right: &[f32]) -> Result<Vec<f32>, ComputeError>
 
 pub fn dot(left: &[f32], right: &[f32]) -> Result<f32, ComputeError> {
     if left.len() != right.len() {
-        return Err(ComputeError::LengthMismatch { left: left.len(), right: right.len() });
+        return Err(ComputeError::LengthMismatch {
+            left: left.len(),
+            right: right.len(),
+        });
     }
     Ok(left.iter().zip(right).map(|(a, b)| a * b).sum())
 }
