@@ -3,10 +3,20 @@ use ferrum_core::ComputeError;
 
 pub fn mean_squared_error(predictions: &[f32], targets: &[f32]) -> Result<f32, ComputeError> {
     if predictions.len() != targets.len() {
-        return Err(ComputeError::LengthMismatch { left: predictions.len(), right: targets.len() });
+        return Err(ComputeError::LengthMismatch {
+            left: predictions.len(),
+            right: targets.len(),
+        });
     }
-    if predictions.is_empty() { return Err(ComputeError::EmptyInput); }
-    Ok(predictions.iter().zip(targets).map(|(a,b)| (a-b).powi(2)).sum::<f32>() / predictions.len() as f32)
+    if predictions.is_empty() {
+        return Err(ComputeError::EmptyInput);
+    }
+    Ok(predictions
+        .iter()
+        .zip(targets)
+        .map(|(a, b)| (a - b).powi(2))
+        .sum::<f32>()
+        / predictions.len() as f32)
 }
 
 #[derive(Debug, Clone, Copy, Default)]
@@ -16,10 +26,19 @@ pub struct LinearRegression {
 }
 
 impl LinearRegression {
-    pub fn predict(&self, x: f32) -> f32 { self.weight * x + self.bias }
+    pub fn predict(&self, x: f32) -> f32 {
+        self.weight * x + self.bias
+    }
 
-    pub fn train(&mut self, samples: &[(f32, f32)], learning_rate: f32, epochs: usize) -> Result<(), ComputeError> {
-        if samples.is_empty() { return Err(ComputeError::EmptyInput); }
+    pub fn train(
+        &mut self,
+        samples: &[(f32, f32)],
+        learning_rate: f32,
+        epochs: usize,
+    ) -> Result<(), ComputeError> {
+        if samples.is_empty() {
+            return Err(ComputeError::EmptyInput);
+        }
         if !learning_rate.is_finite() || learning_rate <= 0.0 {
             return Err(ComputeError::InvalidParameter("learning_rate"));
         }

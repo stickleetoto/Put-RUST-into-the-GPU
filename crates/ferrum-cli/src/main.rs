@@ -27,7 +27,13 @@ fn run_demo() {
     println!("Host timing (includes allocation): {bench:?}");
 
     let mut model = LinearRegression::default();
-    model.train(&[(0.0, 1.0), (1.0, 3.0), (2.0, 5.0), (3.0, 7.0)], 0.05, 1000).unwrap();
+    model
+        .train(
+            &[(0.0, 1.0), (1.0, 3.0), (2.0, 5.0), (3.0, 7.0)],
+            0.05,
+            1000,
+        )
+        .unwrap();
     let mut experiment = ExperimentRecord::new("cpu-linear-regression");
     experiment.add_metric("prediction_at_4", f64::from(model.predict(4.0)));
     experiment.add_metric("host_p95_ns", bench.p95_ns as f64);
@@ -37,6 +43,9 @@ fn run_demo() {
 fn run_probe() {
     let env = probe_environment();
     println!("CUDA toolkit (nvcc) available: {}", env.nvcc_available);
-    println!("NVIDIA management utility available: {}", env.nvidia_smi_available);
+    println!(
+        "NVIDIA management utility available: {}",
+        env.nvidia_smi_available
+    );
     println!("This does not test GPU kernel execution.");
 }

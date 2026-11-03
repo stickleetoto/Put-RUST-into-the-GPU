@@ -9,7 +9,10 @@ pub struct ExperimentRecord {
 
 impl ExperimentRecord {
     pub fn new(name: impl Into<String>) -> Self {
-        Self { name: name.into(), metrics: BTreeMap::new() }
+        Self {
+            name: name.into(),
+            metrics: BTreeMap::new(),
+        }
     }
     pub fn add_metric(&mut self, name: impl Into<String>, value: f64) {
         self.metrics.insert(name.into(), value);

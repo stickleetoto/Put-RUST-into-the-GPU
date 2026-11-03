@@ -31,9 +31,13 @@ impl std::error::Error for ComputeError {}
 impl FromStr for Device {
     type Err = ComputeError;
     fn from_str(value: &str) -> Result<Self, Self::Err> {
-        if value.eq_ignore_ascii_case("cpu") { return Ok(Self::Cpu); }
+        if value.eq_ignore_ascii_case("cpu") {
+            return Ok(Self::Cpu);
+        }
         if let Some(index) = value.strip_prefix("cuda:") {
-            if let Ok(index) = index.parse::<u32>() { return Ok(Self::Cuda(index)); }
+            if let Ok(index) = index.parse::<u32>() {
+                return Ok(Self::Cuda(index));
+            }
         }
         Err(ComputeError::UnsupportedDevice(value.to_owned()))
     }

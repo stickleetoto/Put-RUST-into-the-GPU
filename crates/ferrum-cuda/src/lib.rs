@@ -8,8 +8,11 @@ pub struct CudaEnvironment {
 }
 
 fn command_works(program: &str, argument: &str) -> bool {
-    Command::new(program).arg(argument).output()
-        .map(|result| result.status.success()).unwrap_or(false)
+    Command::new(program)
+        .arg(argument)
+        .output()
+        .map(|result| result.status.success())
+        .unwrap_or(false)
 }
 
 pub fn probe_environment() -> CudaEnvironment {

@@ -11,7 +11,9 @@ pub struct BenchmarkReport {
 }
 
 fn percentile(sorted: &[u128], fraction: f64) -> u128 {
-    if sorted.is_empty() { return 0; }
+    if sorted.is_empty() {
+        return 0;
+    }
     let rank = (fraction * sorted.len() as f64).ceil() as usize;
     sorted[rank.saturating_sub(1).min(sorted.len() - 1)]
 }
@@ -19,7 +21,13 @@ fn percentile(sorted: &[u128], fraction: f64) -> u128 {
 impl BenchmarkReport {
     pub fn from_samples(samples: &[u128]) -> Self {
         if samples.is_empty() {
-            return Self { iterations: 0, mean_ns: 0, p50_ns: 0, p95_ns: 0, p99_ns: 0 };
+            return Self {
+                iterations: 0,
+                mean_ns: 0,
+                p50_ns: 0,
+                p95_ns: 0,
+                p99_ns: 0,
+            };
         }
         let mut ordered = samples.to_vec();
         ordered.sort_unstable();
